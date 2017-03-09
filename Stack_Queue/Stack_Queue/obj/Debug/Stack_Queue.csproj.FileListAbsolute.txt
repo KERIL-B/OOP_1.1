@@ -1,0 +1,5 @@
+E:\vs2012\1progs\4thSemestr\Stack_Queue\Stack_Queue\Stack_Queue\obj\Debug\Stack_Queue.csprojResolveAssemblyReference.cache
+E:\vs2012\1progs\4thSemestr\Stack_Queue\Stack_Queue\Stack_Queue\bin\Debug\Stack_Queue.dll
+E:\vs2012\1progs\4thSemestr\Stack_Queue\Stack_Queue\Stack_Queue\bin\Debug\Stack_Queue.pdb
+E:\vs2012\1progs\4thSemestr\Stack_Queue\Stack_Queue\Stack_Queue\obj\Debug\Stack_Queue.dll
+E:\vs2012\1progs\4thSemestr\Stack_Queue\Stack_Queue\Stack_Queue\obj\Debug\Stack_Queue.pdb

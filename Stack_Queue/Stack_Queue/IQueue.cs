@@ -16,21 +16,25 @@ namespace Stack_Queue
         T Dequeue();
         T Peek();
     }
+
     class ArrayQueue<T> : IQueue<T>
     {
         T[] arr = new T[1000];
         public ArrayQueue()
         {
-            count = 0;            
+            count = 0;
         }
 
         int count;
         bool isEmpty;
 
         public int Count
-        { get { return count; }
-            private set { count = value;
-            isEmpty = count == 0;
+        {
+            get { return count; }
+            private set
+            {
+                count = value;
+                isEmpty = count == 0;
             }
         }
 
@@ -42,12 +46,12 @@ namespace Stack_Queue
 
         public void Enqueue(T value)
         {
-            for (int i = count; i > 0;)
-                arr[i] = arr[i--];
+            for (int i = count - 1; i > 0; )
+                arr[i] = arr[--i];
             arr[0] = value;
         }
 
-        public void Clean()
+        public void Clear()
         {
             for (int i = 0; i < count; i++)
             {
@@ -58,7 +62,7 @@ namespace Stack_Queue
 
         public T Dequeue()
         {
-            T tmp = arr[count-1];
+            T tmp = arr[count - 1];
             arr[--count] = default(T);
             return tmp;
         }
@@ -71,20 +75,23 @@ namespace Stack_Queue
 
     class LinkedQueue<T> : IQueue<T>
     {
-        List<T> list=new List<T>();
+        List<T> list = new List<T>();
 
         public LinkedQueue()
         {
-            count = 0;            
+            count = 0;
         }
 
         int count;
         bool isEmpty;
 
         public int Count
-        { get { return count; }
-            private set { count = value;
-            isEmpty = count == 0;
+        {
+            get { return count; }
+            private set
+            {
+                count = value;
+                isEmpty = count == 0;
             }
         }
 
@@ -102,7 +109,7 @@ namespace Stack_Queue
 
         public void Clear()
         {
-            for (int i = 0; i < count;)
+            while (count > 0)
             {
                 list[--count] = default(T);
             }
@@ -110,17 +117,26 @@ namespace Stack_Queue
 
         public T Dequeue()
         {
-            T tmp = list[0];
-            for (int i = 0; i < --count; )
+            if (IsEmpty)
+            { throw new OutOfRangeException("Queue is empty"); }
+            else
             {
-                list[i] = list[++i];
+                T tmp = list[0];
+                for (int i = 0; i < count - 1; )
+                {
+                    list[i] = list[++i];
+                }
+                count--;
+                return tmp;
             }
-            return tmp;
         }
 
         public T Peek()
         {
-            return list[0];
+            if (IsEmpty)
+                throw new OutOfRangeException("Queue is empty");
+            else
+                return list[0];
         }
     }
 }

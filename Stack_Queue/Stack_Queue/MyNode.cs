@@ -21,9 +21,9 @@ namespace Stack_Queue
 
     interface IStack<T>
     {
-        int Count { get;}
+        int Count { get; }
 
-        bool IsEmpty{get;}
+        bool IsEmpty { get; }
 
         void Push(T value);
 
@@ -49,10 +49,10 @@ namespace Stack_Queue
         int count;
         bool isEmpty;
 
-        public int Count 
-        { 
+        public int Count
+        {
             get { return count; }
-            
+
             private set
             {
                 if (value >= 0)
@@ -66,7 +66,7 @@ namespace Stack_Queue
         public bool IsEmpty
         {
             get { return isEmpty; }
-            private set{isEmpty=value;}
+            private set { isEmpty = value; }
         }
 
         public void Push(T value)
@@ -109,13 +109,13 @@ namespace Stack_Queue
 
                 return rtrn.data;
             }
-            else throw new IndexOutOfRangeException("Stack is empty");
+            else throw new OutOfRangeException("Stack is empty");
         }
 
         public T Peek()
         {
             if (isEmpty)
-                throw new IndexOutOfRangeException("Stack is empty");
+                throw new OutOfRangeException("Stack is empty");
             else return current.data;
 
         }
@@ -123,7 +123,7 @@ namespace Stack_Queue
 
     class ArrayStack<T> : IStack<T>
     {
-        T[] arrStack=new T[1000];
+        T[] arrStack = new T[1000];
 
         int count;
         bool isEmpty;
@@ -150,36 +150,42 @@ namespace Stack_Queue
 
         public void Push(T value)
         {
-            arrStack[count] = value;
-            count++;
+            arrStack[count++] = value;
         }
 
         public void Clear()
         {
-            for (int i = 0; i < count; i++)
+            while (count > 0)
             {
-                arrStack[i] = default(T);
-            }    
-            count = 0;
+                arrStack[--count] = default(T);
+            }
         }
 
-        public T Pop() 
-        {  
-            T tmp=arrStack[count-2];
-            arrStack[--count] = default(T);
-            return tmp;
-
+        public T Pop()
+        {
+            if (IsEmpty)
+            {
+                throw new OutOfRangeException("Stack is empty");
+            }
+            else
+            {
+                T tmp = arrStack[count - 1];
+                arrStack[--count] = default(T);
+                return tmp;
+            }
         }
 
         public T Peek()
         {
-            return arrStack[count - 1];
+            if (IsEmpty)
+                return arrStack[count - 1];
+            else throw new OutOfRangeException("Stack is empty");
         }
     }
 
     class LinckedStack<T> : IStack<T>
     {
-        List<T> listStack=new List<T>();
+        List<T> listStack = new List<T>();
 
         bool isEmpty;
 
@@ -201,12 +207,12 @@ namespace Stack_Queue
 
         public void Clear()
         {
-            listStack.Clear();   
+            listStack.Clear();
         }
 
         public T Pop()
         {
-            T tmp=listStack[listStack.Count-2];
+            T tmp = listStack[listStack.Count - 2];
             listStack.RemoveAt(listStack.Count - 1);
             return tmp;
 
@@ -217,5 +223,4 @@ namespace Stack_Queue
             return listStack[listStack.Count - 1];
         }
     }
-
 }
